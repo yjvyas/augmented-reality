@@ -1,7 +1,7 @@
 # parameters
-ARG REPO_NAME="<REPO_NAME_HERE>"
-ARG DESCRIPTION="<DESCRIPTION_HERE>"
-ARG MAINTAINER="<YOUR_FULL_NAME> (<YOUR_EMAIL_ADDRESS>)"
+ARG REPO_NAME="Augmented-Reality-basics"
+ARG DESCRIPTION="Basic augmented reality."
+ARG MAINTAINER="Yash Vyas (yjvyas@gmail.com)"
 # pick an icon from: https://fontawesome.com/v4.7.0/icons/
 ARG ICON="cube"
 
@@ -33,6 +33,7 @@ RUN dt-build-env-check "${REPO_NAME}" "${MAINTAINER}" "${DESCRIPTION}"
 # define/create repository path
 ARG REPO_PATH="${CATKIN_WS_DIR}/src/${REPO_NAME}"
 ARG LAUNCH_PATH="${LAUNCH_DIR}/${REPO_NAME}"
+ARG ASSET_PATH="${REPO_PATH}/assets"
 RUN mkdir -p "${REPO_PATH}"
 RUN mkdir -p "${LAUNCH_PATH}"
 WORKDIR "${REPO_PATH}"
@@ -45,6 +46,7 @@ ENV DT_MAINTAINER "${MAINTAINER}"
 ENV DT_REPO_PATH "${REPO_PATH}"
 ENV DT_LAUNCH_PATH "${LAUNCH_PATH}"
 ENV DT_LAUNCHER "${LAUNCHER}"
+ENV DT_ASSET_PATH = "${ASSET_PATH}"
 
 # install apt dependencies
 COPY ./dependencies-apt.txt "${REPO_PATH}/"
@@ -56,6 +58,9 @@ RUN pip3 install --use-feature=2020-resolver -r ${REPO_PATH}/dependencies-py3.tx
 
 # copy the source code
 COPY ./packages "${REPO_PATH}/packages"
+
+# copy assets
+COPY ./assets "${ASSET_PATH}"
 
 # build packages
 RUN . /opt/ros/${ROS_DISTRO}/setup.sh && \

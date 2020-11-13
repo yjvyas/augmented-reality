@@ -1,0 +1,5 @@
+<launch>
+  <group ns="$(arg veh)"> 
+    <node pkg="augmented_reality_basics" type="augmented_reality_basics.py" name="augmented_reality_basics" output="screen" args="$(arg map_file) $(arg veh)"/>
+  </group>
+</launch>

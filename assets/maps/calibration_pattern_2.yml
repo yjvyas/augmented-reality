@@ -1,0 +1,14 @@
+points:
+  TL: [camera, [0, 0.16, 0]]
+  TR: [camera, [0.315, -0.093, 0]]
+  BR: [camera, [0.0, 0.185, 0]]
+  BL: [camera, [0.0, 0, 0]]
+segments:
+- points: [TL, TR]
+  color: red
+- points: [TR, BR]
+  color: green
+- points: [BR, BL]
+  color: blue
+- points: [BL, TL]
+  color: yellow
