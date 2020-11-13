@@ -38,7 +38,7 @@ class Augmenter(DTROS):
         self.sub = rospy.Subscriber(f'/{self.veh_name}/camera_node/image/compressed', CompressedImage, self.callback)
         self.camera_info = rospy.Subscriber(f'/{self.veh_name}/camera_node/camera_info', CameraInfo, self.set_camera_info)
         self.pub = rospy.Publisher(f'/{self.veh_name}/augmented_reality/{self.map_name}/image/compressed', CompressedImage, queue_size=10)
-        self.colours = {'red':[0, 0, 255], 'green': [0, 255, 0], 'blue':[255, 0, 0], 'yellow':[0,255,255]}
+        self.colours = {'red':[0, 0, 255], 'green': [0, 255, 0], 'blue':[255, 0, 0], 'yellow':[0,255,255], 'white':[255,255,255]}
 
         self.cvbr = CvBridge()
 
@@ -84,7 +84,7 @@ class Augmenter(DTROS):
             start_pixel = self.ground2pixel(self.map['points'][segment['points'][0]][1], P_start)
             end_pixel = self.ground2pixel(self.map['points'][segment['points'][1]][1], P_end)
             
-            img = cv2.line(img, start_pixel, end_pixel, self.colours[segment['color']])
+            img = cv2.line(img, start_pixel, end_pixel, self.colours[segment['color']], 2)
         return img
 
     def callback(self, msg):
